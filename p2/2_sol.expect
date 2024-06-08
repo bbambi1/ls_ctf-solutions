@@ -1,0 +1,28 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+spawn ./2_human_calculator
+
+expect "Let's do some math together, it will be fun !"
+expect "How about some multiplications ? I have a few numbers to multiply here."
+expect "If you help me, I promise there is a prize at the end ! ;-)"
+
+for {set i 0} {$i < 4821} {incr i} {
+    expect {
+        "What is * * * ?" {
+            set question $expect_out(0,string)
+            regexp {What is ([0-9]+) \* ([0-9]+)} $question match num1 num2
+            set answer [expr {$num1 * $num2}]
+            send "$answer\r"
+            expect "Alright, next one."
+        }
+        "Yay ! Here is your prize:" {
+            interact
+            break
+        }
+        "No, that's not right..." {
+            send_user "Incorrect answer encountered.\n"
+            exit 1
+        }
+    }
+}
