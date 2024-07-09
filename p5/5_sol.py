@@ -31,7 +31,7 @@ def generate_key():
     for i in range(14):
         index = b(i * 8)
         key += chr(alphabet[index % len(alphabet)])
-        print(key)
+        # print(key)
     return key
 
 full_key = generate_key()

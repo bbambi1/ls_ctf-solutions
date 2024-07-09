@@ -2,7 +2,7 @@ import struct
 import subprocess
 import os
 
-vulnerable_function_address = 0x5555555552db  # reaaly useful?
+vulnerable_function_address = 0x5555555552db
 
 # Construct the shellcode using msfvenom
 shellcode =  b""

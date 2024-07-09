@@ -3,24 +3,9 @@ import string
 import sys
 
 def interact_with_executable(input_string):
-    # This function interacts with the executable and returns its output
     process = subprocess.Popen(['./1_speak_friend'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = process.communicate(input=input_string.encode())
     return stdout.decode()
-
-# def interact_with_executable_verbose(input_string):
-#     # This function interacts with the executable and returns its output
-#     process = subprocess.Popen(
-#         ['./1_speak_friend'], 
-#         stdin=subprocess.PIPE, 
-#         stdout=subprocess.PIPE, 
-#         stderr=subprocess.PIPE, 
-#         text=True
-#     )
-#     stdout, stderr = process.communicate(input=input_string)
-#     sys.stdout.write(stdout)
-#     sys.stderr.write(stderr)
-#     return stdout
 
 def parse_output(output):
     lines = output.split('\n')
@@ -43,12 +28,12 @@ def brute_force_flag():
     for i in range(flag_length):
         for char in possible_chars:
             test_input = ''.join(flag[:i]) + char + ''.join(flag[i+1:])
-            print(f"Testing input: {test_input}")
+            # print(f"Testing input: {test_input}")
             output = interact_with_executable(test_input)
             revealed_flag = parse_output(output)
             if len(revealed_flag) == flag_length and revealed_flag[i] != '*':
                 flag[i] = revealed_flag[i]
-                print(f"Updated flag: {''.join(flag)}")
+                # print(f"Updated flag: {''.join(flag)}")
                 # Store the working character for the current position
                 working_characters[i] = char
                 break
